@@ -1,0 +1,25 @@
+label {
+    font-weight:normal
+}
+body {
+    color: #73879C;
+    background: #282a38;
+    font-family: "Proxima Nova", Roboto, Arial, "Droid Sans", sans-serif;
+    letter-spacing:1px;
+    font-weight:400
+}
+div.left_col.scroll-view {
+    cursor:pointer;
+}
+//Replace custom.css line 1400 with this//
+button.DTTT_button, div.DTTT_button, a.DTTT_button {
+    border: 1px solid #1a82c3 !important;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #1a82c3 !important;
+    color: #ffffff;
+    box-shadow: none !important;
+    margin: 10px;
+    float: right;
+    padding: 3px;
+}

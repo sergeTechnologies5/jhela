@@ -1,0 +1,4 @@
+static
+app/*.pyc
+jhela/*.pyc
+static/*
