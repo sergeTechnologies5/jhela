@@ -1181,7 +1181,7 @@ def addClientAPI(request):
 	except:
 		pass
 	print data
-	logger(filename='clientdata.log',message = data,flag='data'+str(' from  client registration endpoint'))
+	
 	leo = datetime.datetime.now()
 	print 'now is'
 	print leo
@@ -1453,6 +1453,7 @@ def addClientAPI(request):
 								print 'avoinding SQL Injection'
 								#sql = "INSERT INTO MembersMasterFile (MemberTypeCode,TitleCode,FirstName,Surname,OtherNames,PayrollNo,EmployerCode,BranchCode,CategoryCode,MemberNo,IDNumber,MemberGender,HomeAddress,PresentAddress,PhoneNo,CellPhone,IntroducedBy,WorkStationCode,JoinDate,BOSAStatusDate,BOSAStatusLogUser,BOSAStatusCode,BOSAStatusComment,DesignationCode,DOB,Transacted,Profession,income) VALUES ('001',%s,%s,%s,%s,%s,'000','001','000',%s,%s,%s,%s,%s,%s,%s,%s,%s,CURDATE(),CURDATE(),%s,'002',%s,'000',%s,%s,%s,%s);" % (title, first_name, fathers_name, middle_name, phone, phone,idnumber,sex, ward, subcounty, phone, phone,introducerphone,workstation,system,new_member,dob,no,profession,income)
 								print sql
+								logger(filename='clientdata.log',message = sql,flag='data'+str(' from  client registration endpoint'))
 								result = cursor.execute(sql)
 								db.commit()
 								db.close()
@@ -1487,6 +1488,7 @@ def addClientAPI(request):
 										print 'avoiding SQL Injection after except'
 										#sql = "INSERT INTO MembersMasterFile (MemberTypeCode,TitleCode,FirstName,Surname,OtherNames,PayrollNo,EmployerCode,BranchCode,CategoryCode,MemberNo,IDNumber,MemberGender,HomeAddress,PresentAddress,PhoneNo,CellPhone,IntroducedBy,WorkStationCode,JoinDate,BOSAStatusDate,BOSAStatusLogUser,BOSAStatusCode,BOSAStatusComment,DesignationCode,DOB,Transacted,Profession,income) VALUES ('001',%s,%s,%s,%s,%s,'000','001','000',%s,%s,%s,%s,%s,%s,%s,%s,%s,CURDATE(),CURDATE(),%s,'002',%s,'000',%s,%s,%s,%s);" % (title, first_name, fathers_name, middle_name, phone, phone,idnumber,sex, ward, subcounty, phone, phone,introducerphone,workstation,system,new_member,dob,no,profession,income)
 										print sql
+										logger(filename='clientdata.log',message = sql,flag='data'+str(' from  client registration endpoint'))
 										result = cursor.execute(sql)
 										db.commit()
 										db.close()
@@ -1500,6 +1502,7 @@ def addClientAPI(request):
 								db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
 								cursor = db.cursor()
 								sql = "INSERT INTO NextOfKins (EmployerCode,PayrollNo,TitleCode,Names,Gender,IDNumber,PhoneNo,RelationCode,DateLastChanged) VALUES ('000','"+phone+"','"+title+"','"+kin_names+"','"+gender+"','"+kin_idnumber+"','"+kinphone+"','"+relationship+"',CURDATE());"
+								logger(filename='clientdata.log',message = sql,flag='data'+str(' from  client registration endpoint'))
 								result = cursor.execute(sql)
 								db.commit()
 								db.close()
@@ -2061,8 +2064,14 @@ def confirmID(surname,first_name,second_name,national_id):
 	reportSector = 1/2
 	reportReason = 1
  	print 'check CRB ....'
-	product102 = client.service.getProduct121(username=username,password=password,code=code,infinityCode=infinityCode,nationalID=nationalID,name1=name1,name2=name2,name3=name3,reportReason=reportReason,reportSector=reportSector)
-	reply = str(product102.responseCode)
+	try:
+		product102 = client.service.getProduct121(username=username,password=password,code=code,infinityCode=infinityCode,nationalID=nationalID,name1=name1,name2=name2,name3=name3,reportReason=reportReason,reportSector=reportSector)
+		reply = str(product102.responseCode)
+	except Exception as identifier:
+		logger(filename='clientdata.log',message = ex,flag='data'+str(' from  client registration endpoint'))
+		pass
+	
+	
 	print reply
 	if reply == '200' or reply == '203':
 		print 'success'
@@ -3825,7 +3834,7 @@ def addGroupClientAPI(request):
 	print data
 	logger(filename='groupdata.log',message = data,flag='data'+str(' from groupreg endpoint'))
 	# code by phineas to add logger
-	logger(filename='data.log',message = data,flag='data')
+
 	first_name = data['group_name']
 	middle_name = ''
 	fathers_name = ''
