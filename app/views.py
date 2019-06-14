@@ -19,6 +19,7 @@ import datetime
 import time
 # credentials
 import requests as requester
+from logs import logger
 
 username = 'cX26K2W836QT8Up'
 password = 'D57Jc8SdsSJ1gAE'
@@ -1718,6 +1719,7 @@ def getCounties(request):
 	db.commit()
 	db.close()
 	print phoneresult
+	logger(filename='data.log',message=phoneresult,flag='data')
 
 	# Convert query to objects of key-value pairs
 	objects_list = []
@@ -3808,6 +3810,9 @@ def addGroupClientAPI(request):
 		pass
 
 	print data
+	logger(filename='groupdata.log',message = data,flag='data'+str(' from groupreg endpoint'))
+	# code by phineas to add logger
+	logger(filename='data.log',message = data,flag='data')
 	first_name = data['group_name']
 	middle_name = ''
 	fathers_name = ''
@@ -3889,7 +3894,7 @@ def addGroupClientAPI(request):
 		apidata = json.dumps({"phone":phone,"iphone":introducerphone,"idnumber":idnumber,"first_name":first_name,"fathers_name":fathers_name,"idnumber":idnumber,"is_group":"yes"})
 
 		data = {"phone":phone,"iphone":introducerphone,"idnumber":idnumber,"first_name":first_name.encode('utf-8').strip(),"is_group":"yes","fathers_name":fathers_name,"idnumber":idnumber,"username":"jhelaapi","password":"jhelaapi"}
-
+		
 		print data
 		postfields = urllib.urlencode(data)
 
@@ -4020,7 +4025,9 @@ def addGroupClientAPI(request):
 				ncServerData = json.loads(ncServerData)
 				print 'ncServerData ncServerData'
 				print ncServerData
-			except:
+				logger(filename='pesaplusdata.log',message = ncServerData,flag='data'+str(' to pesaplus'))
+			except Exception as ex:
+				logger(filename='pesapluserror.log',message = ex,flag='error from :'+str('pesaplus'))
 				pass
 
 			'''
@@ -4276,7 +4283,8 @@ def addGroupClientAPI(request):
 							result = cursor.execute(sql)
 							db.commit()
 							db.close()
-						except:
+						except Exception as ex:
+							logger(filename='sqlerror.log',message = ex,flag=' error from :'+str(' martin : workstation update 1'))
 							pass
 
 				#try:
@@ -4336,7 +4344,8 @@ def addGroupClientAPI(request):
 					db.commit()
 					db.close()
 					weka = False
-				except:
+				except Exception as ex :
+					logger(filename='sqlerror.log',message = ex,flag=' error from :'+str(' martin : Register Microfinance group MicroFinanceMasterFile'))
 					#workstation update
 					try:
 						workstation = '0' + workstation
@@ -4350,7 +4359,8 @@ def addGroupClientAPI(request):
 						db.commit()
 						db.close()
 						weka = False
-					except:
+					except Exception as ex:
+						logger(filename='sqlerror.log',message = ex,flag=' error from :'+str(' martin : workstation update 2'))
 						pass
 				if weka:
 					print 'weka is True >>'
@@ -4366,7 +4376,8 @@ def addGroupClientAPI(request):
 						db.commit()
 						db.close()
 						weka = False
-					except:
+					except Exception as ex:
+						logger(filename='sqlerror.log',message = ex,flag=' error from :'+str(' martin : weka is True '))
 						pass
 
 				############################### brought back - register group ##############################
@@ -4414,7 +4425,8 @@ def addGroupClientAPI(request):
 					db.commit()
 					db.close()
 					print 'save signatories for later processing >>'
-				except:
+				except Exception as ex:
+					logger(filename='sqlerror.log',message = ex,flag=' error from :'+str(' martin : saving signatories for later processing '))
 					pass
 
 
@@ -4525,7 +4537,9 @@ def addGroupClientAPI(request):
 					ncServerData = json.loads(ncServerData)
 					print 'ncServerData ncServerData'
 					print ncServerData
-				except:
+					logger(filename='pesaplusdata.log',message = ncServerData,flag=' error from :'+str(' jaxo : data to Pesaplus .... '))
+				except Exception as ex :
+					logger(filename='pesapluserror.log',message = ex,flag=' error from :'+str(' jaxo : data to Pesaplus .... '))
 					pass
 
 				reply = json.dumps({'result':'Registration Successful!.'})
