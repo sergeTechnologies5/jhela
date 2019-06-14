@@ -4238,12 +4238,12 @@ def addGroupClientAPI(request):
 			print phone11
 			reply = json.dumps({'result':"Failed. Chairman's already belongs to three or more groups. Kindly try again with a different number"})
 			return HttpResponse(reply,mimetype)
-		elif int(phone21) > 2 :
+		elif int(phone21) > 1002 :
 			print "Failed. Treasurer's already belongs to three or more groups. Kindly try again with a different number"
 			print phone21
 			reply = json.dumps({'result':"Failed. Treasurer's already belongs to three or more groups. Kindly try again with a different number"})
 			return HttpResponse(reply,mimetype)
-		elif int(phone31) > 2 :
+		elif int(phone31) > 1002 :
 			print "Failed. Secretary's already belongs to three or more groups. Kindly try again with a different number"
 			print phone31
 			reply = json.dumps({'result':"Failed. Secretary's already belongs to three or more groups. Kindly try again with a different number"})
