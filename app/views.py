@@ -3910,6 +3910,7 @@ def addGroupClientAPI(request):
 	day = datetime.datetime(1990, 1, 1)
 	todaystr = str(day)
 	todaystr = '1990-01-01'
+
 	a = True
 	if a:
 	#try:
@@ -3976,26 +3977,41 @@ def addGroupClientAPI(request):
 		#data = {"phone":phone,"iphone":introducerphone,"idnumber":idnumber,"first_name":first_name,"fathers_name":fathers_name,"idnumber":idnumber,"username":"jhelaapi","password":"jhelaapi","is_group":"yes"}
 
 		#data = {"phone":phone,"iphone":introducerphone,"idnumber":idnumber,"first_name":first_name,"fathers_name":fathers_name,"idnumber":idnumber,"username":"jhelaapi","password":"jhelaapi"}
+		try:
+			sms = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone1
+			phone11 = requester.get(sms).text
+			print "phone11"
+			print phone11
+			logger(filename='pesaplusdata.log',message = phone11,flag='data'+str(' from pesaplus'))
+		except expression as ex:
+			logger(filename='pesapluserror.log',message = ex,flag='error'+str(' from pesaplus'))
+			pass
+		
 
-		sms = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone1
-		phone11 = requester.get(sms).text
+		try:
+			sms = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone2
+			phone21 = requester.get(sms).text
+			print "phone21"
+			print phone21
+			logger(filename='pesaplusdata.log',message = phone21,flag='data'+str(' from pesaplus'))
+		except Exception as ex:
+			logger(filename='pesapluserror.log',message = ex,flag='error'+str(' from pesaplus'))
+			pass
 
-		print "phone11"
-		print phone11
-		sms = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone2
-		phone21 = requester.get(sms).text
-
-		print "phone21"
-		print phone21
-		simutatu = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone3
-		print 'sms phone31'
-		print simutatu
-		saahuu = datetime.datetime.now()
-		print 'saahuu is'
-		print saahuu
-		phone31 = requester.get(simutatu).text
-		print "phone31"
-		print phone31
+		try:
+			simutatu = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone3
+			print 'sms phone31'
+			print simutatu
+			saahuu = datetime.datetime.now()
+			print 'saahuu is'
+			print saahuu
+			phone31 = requester.get(simutatu).text
+			print "phone31"
+			print phone31
+			logger(filename='pesaplusdata.log',message = phone31,flag='data'+str(' from pesaplus'))
+		except Exception as ex:
+			logger(filename='pesapluserror.log',message = ex,flag='error'+str(' from pesaplus'))
+			pass
 
 		if not introducerresult:
 			#postfields = urllib.urlencode(data)
@@ -4759,26 +4775,35 @@ def addGroupClientAPI01112018(request):
 		print data
 		print postfields
 		#data = {"phone":phone,"iphone":introducerphone,"idnumber":idnumber,"first_name":first_name,"fathers_name":fathers_name,"idnumber":idnumber,"username":"jhelaapi","password":"jhelaapi"}
+		try:
+			sms = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone1
+			phone11 = requester.get(sms).text
+			print "phone11"
+			print phone11
+		except Exception as ex:
 
-		sms = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone1
-		phone11 = requester.get(sms).text
-
-		print "phone11"
-		print phone11
-		sms = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone2
-		phone21 = requester.get(sms).text
-
-		print "phone21"
-		print phone21
-		simutatu = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone3
-		print 'sms phone31'
-		print simutatu
-		saahuu = datetime.datetime.now()
-		print 'saahuu is'
-		print saahuu
-		phone31 = requester.get(simutatu).text
-		print "phone31"
-		print phone31
+			pass
+		
+		try:
+			sms = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone2
+			phone21 = requester.get(sms).text
+			print "phone21"
+			print phone21
+		except Exception as ex:
+			pass
+		
+		try:
+			simutatu = 'https://www.pesaplus.co.ke/checkNumber/?parameter4='+phone3
+			print 'sms phone31'
+			print simutatu
+			saahuu = datetime.datetime.now()
+			print 'saahuu is'
+			print saahuu
+			phone31 = requester.get(simutatu).text
+			print "phone31"
+			print phone31
+		except Exception as ex:
+			pass
 
 		if not introducerresult:
 			postfields = urllib.urlencode(data)
@@ -4821,9 +4846,9 @@ def addGroupClientAPI01112018(request):
 			if groupresult:
 				db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
 				cursor = db.cursor()
-				sql = "UPDATE PendingGroup SET name='"+first_name+"',address='"+address+"',workstation='"+workstation+"',group_type='"+group_type+"' WHERE\
-				 phone='"+phone+"'";
+				sql = "UPDATE PendingGroup SET name='"+first_name+"',address='"+address+"',workstation='"+workstation+"',group_type='"+group_type+"' WHERE phone='"+phone+"'";
 				result = cursor.execute(sql)
+
 				db.commit()
 				db.close()
 			else:
@@ -4832,6 +4857,7 @@ def addGroupClientAPI01112018(request):
 				cursor = db.cursor()
 				sql = "INSERT INTO PendingGroup (phone,chairman,treasurer,secretary,status,name,address,workstation,group_type,date_created) VALUES ('"+phone+"','"+phone1+"','"+phone2+"','"+phone3+"','pending','"+first_name+"','"+address+"','"+workstation+"','"+group_type+"',CURDATE());"
 				print sql
+
 				result = cursor.execute(sql)
 				db.commit()
 				db.close()
@@ -4851,6 +4877,7 @@ def addGroupClientAPI01112018(request):
 				print ncServerData
 				print 'ncServerData ncServerData'
 			except:
+
 				reply = json.dumps({'result':'Phone number has already been registered'})
 				pass
 			reply = json.dumps({'result':'Phone number has already been registered'})
@@ -4885,6 +4912,7 @@ def addGroupClientAPI01112018(request):
 				print 'avoinding SQL Injection'
 				#sql = "INSERT INTO MembersMasterFile (MemberTypeCode,TitleCode,FirstName,Surname,OtherNames,PayrollNo,EmployerCode,BranchCode,CategoryCode,MemberNo,IDNumber,MemberGender,HomeAddress,PresentAddress,PhoneNo,CellPhone,IntroducedBy,WorkStationCode,JoinDate,BOSAStatusDate,BOSAStatusLogUser,BOSAStatusCode,BOSAStatusComment,DesignationCode,DOB,Transacted,Profession,income) VALUES ('001',%s,%s,%s,%s,%s,'000','001','000',%s,%s,%s,%s,%s,%s,%s,%s,%s,CURDATE(),CURDATE(),%s,'002',%s,'000',%s,%s,%s,%s);" % (title, first_name, fathers_name, middle_name, phone, phone,idnumber,sex, ward, subcounty, phone, phone,introducerphone,workstation,system,new_member,dob,no,profession,income)
 				print sql
+
 				result = cursor.execute(sql)
 				print result
 				print cursor.fetchall()
@@ -4920,6 +4948,7 @@ def addGroupClientAPI01112018(request):
 					print 'avoiding SQL Injection after except'
 					#sql = "INSERT INTO MembersMasterFile (MemberTypeCode,TitleCode,FirstName,Surname,OtherNames,PayrollNo,EmployerCode,BranchCode,CategoryCode,MemberNo,IDNumber,MemberGender,HomeAddress,PresentAddress,PhoneNo,CellPhone,IntroducedBy,WorkStationCode,JoinDate,BOSAStatusDate,BOSAStatusLogUser,BOSAStatusCode,BOSAStatusComment,DesignationCode,DOB,Transacted,Profession,income) VALUES ('001',%s,%s,%s,%s,%s,'000','001','000',%s,%s,%s,%s,%s,%s,%s,%s,%s,CURDATE(),CURDATE(),%s,'002',%s,'000',%s,%s,%s,%s);" % (title, first_name, fathers_name, middle_name, phone, phone,idnumber,sex, ward, subcounty, phone, phone,introducerphone,workstation,system,new_member,dob,no,profession,income)
 					print sql
+
 					result = cursor.execute(sql)
 					db.commit()
 					db.close()
@@ -4948,6 +4977,7 @@ def addGroupClientAPI01112018(request):
 					cursor = db.cursor()
 					sql = "INSERT INTO Signatories (MasterFileId,ChairpersonPhone,TreasurerPhone,SecretaryPhone) VALUES ('"+MemId+"', '"+phone1+"','"+phone2+"','"+phone3+"');"  #,CURDATE()
 					print sql
+
 					result = cursor.execute(sql)
 					db.commit()
 					db.close()
@@ -4979,6 +5009,7 @@ def addGroupClientAPI01112018(request):
 					cursor = db.cursor()
 					sql = "INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('"+first_name+"','"+address+"','"+workstation+"','"+MemId+"','"+group_type+"','"+MemId+"');"
 					print sql
+
 					result = cursor.execute(sql)
 					db.commit()
 					db.close()
@@ -4993,6 +5024,7 @@ def addGroupClientAPI01112018(request):
 						cursor = db.cursor()
 						sql = "INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('"+first_name+"','"+address+"','"+workstation+"','"+MemId+"','"+group_type+"','"+MemId+"');"
 						print sql
+
 						result = cursor.execute(sql)
 						db.commit()
 						db.close()
@@ -5009,11 +5041,13 @@ def addGroupClientAPI01112018(request):
 						cursor = db.cursor()
 						sql = "INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('"+first_name+"','"+address+"','"+workstation+"','"+MemId+"','"+group_type+"','"+MemId+"');"
 						print sql
+
 						result = cursor.execute(sql)
 						db.commit()
 						db.close()
 						weka = False
 					except:
+
 						pass
 
 				############################### brought back - register group ##############################
@@ -5057,6 +5091,7 @@ def addGroupClientAPI01112018(request):
 					cursor = db.cursor()
 					sql = "INSERT INTO PendingGroup (phone,chairman,treasurer,secretary,status,name,address,workstation,group_type,date_created) VALUES ('"+phone+"','"+phone1+"','"+phone2+"','"+phone3+"','pending','"+first_name+"','"+address+"','"+workstation+"','"+group_type+"',CURDATE());"
 					print sql
+
 					result = cursor.execute(sql)
 					db.commit()
 					db.close()
@@ -5079,6 +5114,7 @@ def addGroupClientAPI01112018(request):
 					ncServerData = b.getvalue()
 					ncServerData = json.loads(ncServerData)
 					print 'ncServerData ncServerData'
+
 					print ncServerData
 				except:
 					pass
