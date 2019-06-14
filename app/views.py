@@ -1368,7 +1368,7 @@ def addClientAPI(request):
 					print ncServerData
 					logger(filename='pesaplusdata.log',message = ncServerData,flag='data'+str(' to client pesaplus'))
 					print 'ncServerData ncServerData'
-				except Exception ex:
+				except Exception as ex:
 					logger(filename='pesapluserror.log',message = ex ,flag='error '+str(' from jaxo : client registration pesaplus'))
 					pass
 				reply = json.dumps({'result':'Phone number has already been registered'})
@@ -1459,7 +1459,7 @@ def addClientAPI(request):
 								print 'addClientAPI db result 1'
 								print result
 								print 'registered on first attempt'
-							except Exception ex :
+							except Exception as ex :
 								logger(filename='sqlerror.log',message = ex ,flag='error '+str(' from martin :  #Register client'))
 								#Check phone number
 								db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
@@ -1492,7 +1492,7 @@ def addClientAPI(request):
 										db.close()
 										print 'addClientAPI db result 2'
 										print result
-									except Exception ex :
+									except Exception as ex :
 										logger(filename='sqlerror.log',message = ex ,flag='error '+str(' from martin :  #workstation update 1'))
 										pass
 
