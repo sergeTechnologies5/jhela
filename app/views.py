@@ -1180,8 +1180,8 @@ def addClientAPI(request):
 		log.save()
 	except:
 		pass
-
 	print data
+	logger(filename='clientdata.log',message = data,flag='data'+str(' from  client registration endpoint'))
 	leo = datetime.datetime.now()
 	print 'now is'
 	print leo
@@ -1366,8 +1366,10 @@ def addClientAPI(request):
 					ncServerData = b.getvalue()
 					ncServerData = json.loads(ncServerData)
 					print ncServerData
+					logger(filename='pesaplusdata.log',message = ncServerData,flag='data'+str(' to client pesaplus'))
 					print 'ncServerData ncServerData'
-				except:
+				except Exception ex:
+					logger(filename='pesapluserror.log',message = ex ,flag='error '+str(' from jaxo : client registration pesaplus'))
 					pass
 				reply = json.dumps({'result':'Phone number has already been registered'})
 			elif idresult:
@@ -1457,7 +1459,8 @@ def addClientAPI(request):
 								print 'addClientAPI db result 1'
 								print result
 								print 'registered on first attempt'
-							except:
+							except Exception ex :
+								logger(filename='sqlerror.log',message = ex ,flag='error '+str(' from martin :  #Register client'))
 								#Check phone number
 								db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
 								cursor = db.cursor()
@@ -1489,15 +1492,20 @@ def addClientAPI(request):
 										db.close()
 										print 'addClientAPI db result 2'
 										print result
-									except:
+									except Exception ex :
+										logger(filename='sqlerror.log',message = ex ,flag='error '+str(' from martin :  #workstation update 1'))
 										pass
 
-							db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
-							cursor = db.cursor()
-							sql = "INSERT INTO NextOfKins (EmployerCode,PayrollNo,TitleCode,Names,Gender,IDNumber,PhoneNo,RelationCode,DateLastChanged) VALUES ('000','"+phone+"','"+title+"','"+kin_names+"','"+gender+"','"+kin_idnumber+"','"+kinphone+"','"+relationship+"',CURDATE());"
-							result = cursor.execute(sql)
-							db.commit()
-							db.close()
+							try:
+								db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
+								cursor = db.cursor()
+								sql = "INSERT INTO NextOfKins (EmployerCode,PayrollNo,TitleCode,Names,Gender,IDNumber,PhoneNo,RelationCode,DateLastChanged) VALUES ('000','"+phone+"','"+title+"','"+kin_names+"','"+gender+"','"+kin_idnumber+"','"+kinphone+"','"+relationship+"',CURDATE());"
+								result = cursor.execute(sql)
+								db.commit()
+								db.close()
+							except Exception  as ex:
+								logger(filename='sqlerror.log',message = ex ,flag='error '+str(' from martin :  #adding nextofkin'))
+								pass
 
 							reply = json.dumps({'result':'Registration Successful!.'})
 
@@ -1514,19 +1522,24 @@ def addClientAPI(request):
 
 							print 'sending data to Pesaplus ....'
 							print data
-							postfields = urllib.urlencode(data)
-							c = pycurl.Curl()
-							c.setopt(pycurl.URL, url)
-							c.setopt(pycurl.HTTPHEADER, ['X-Postmark-Server-Token: API_TOKEN_HERE','Accept: application/json'])
-							c.setopt(pycurl.POST, 1)
-							c.setopt(pycurl.POSTFIELDS, postfields)
-							b = StringIO.StringIO();
-							c.setopt(pycurl.WRITEFUNCTION, b.write)
-							c.perform()
-							ncServerData = b.getvalue()
-							ncServerData = json.loads(ncServerData)
-							print 'ncServerData ncServerData'
-							print ncServerData
+							try:
+								postfields = urllib.urlencode(data)
+								c = pycurl.Curl()
+								c.setopt(pycurl.URL, url)
+								c.setopt(pycurl.HTTPHEADER, ['X-Postmark-Server-Token: API_TOKEN_HERE','Accept: application/json'])
+								c.setopt(pycurl.POST, 1)
+								c.setopt(pycurl.POSTFIELDS, postfields)
+								b = StringIO.StringIO();
+								c.setopt(pycurl.WRITEFUNCTION, b.write)
+								c.perform()
+								ncServerData = b.getvalue()
+								ncServerData = json.loads(ncServerData)
+								print 'ncServerData ncServerData'
+								print ncServerData
+								logger(filename='pesaplusdata.log',message = ncServerData ,flag='data '+str(' data to pesaplus client registration :  #adding nextofkin'))
+							except Exception as ex :
+								logger(filename='sqlerror.log',message = ex ,flag='error '+str(' from martin :  #adding nextofkin'))
+								pass
 
 							#logid = log.id
 							#APILog.filter.objects(id=logid).update(syncd=True)
