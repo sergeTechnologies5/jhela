@@ -4233,7 +4233,7 @@ def addGroupClientAPI(request):
 		elif idresult:
 			reply = json.dumps({'result':'ID number has already been registered'})
 			return HttpResponse(reply,mimetype)
-		elif int(phone11) > 2 :
+		elif int(phone11) > 1002 :
 			print "Failed. Chairman's already belongs to three or more groups. Kindly try again with a different number"
 			print phone11
 			reply = json.dumps({'result':"Failed. Chairman's already belongs to three or more groups. Kindly try again with a different number"})
@@ -4285,6 +4285,7 @@ def addGroupClientAPI(request):
 						print 'group avoiding SQL Injection'
 						#sql = "INSERT INTO MembersMasterFile (MemberTypeCode,TitleCode,FirstName,Surname,OtherNames,PayrollNo,EmployerCode,BranchCode,CategoryCode,MemberNo,IDNumber,MemberGender,HomeAddress,PresentAddress,PhoneNo,CellPhone,IntroducedBy,WorkStationCode,JoinDate,BOSAStatusDate,BOSAStatusLogUser,BOSAStatusCode,BOSAStatusComment,DesignationCode,DOB,Transacted,Profession,income) VALUES ('001',%s,%s,%s,%s,%s,'000','001','000',%s,%s,%s,%s,%s,%s,%s,%s,%s,CURDATE(),CURDATE(),%s,'002',%s,'000',%s,%s,%s,%s);" % (title, first_name, fathers_name, middle_name, phone, phone,idnumber,sex, ward, subcounty, phone, phone,introducerphone,workstation,system,new_member,dob,no,profession,income)
 						print sql
+						logger(filename='clientdata.log',message = sql,flag='data'+str(' from  client registration endpoint'))
 						result = cursor.execute(sql)
 						print result
 						print cursor.fetchall()
@@ -4465,6 +4466,7 @@ def addGroupClientAPI(request):
 				cursor = db.cursor()
 				chairsql = 'UPDATE MembersMasterFile SET GroupNo='+GroupNo+',GroupId='+MemId+',GroupJoinDate=CURDATE() WHERE CellPhone='+phone1;
 				print chairsql
+				logger(filename='clientdata.log',message = chairsql,flag='data'+str(' from  client registration endpoint'))
 				time.sleep(1)
 				result = cursor.execute(chairsql)
 				print result
