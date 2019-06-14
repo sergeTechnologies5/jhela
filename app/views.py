@@ -3832,7 +3832,7 @@ def addGroupClientAPI(request):
 		pass
 
 	print data
-	logger(filename='groupdata.log',message = data,flag='data'+str(' from groupreg endpoint'))
+	
 	# code by phineas to add logger
 
 	first_name = data['group_name']
@@ -3916,7 +3916,7 @@ def addGroupClientAPI(request):
 		apidata = json.dumps({"phone":phone,"iphone":introducerphone,"idnumber":idnumber,"first_name":first_name,"fathers_name":fathers_name,"idnumber":idnumber,"is_group":"yes"})
 
 		data = {"phone":phone,"iphone":introducerphone,"idnumber":idnumber,"first_name":first_name.encode('utf-8').strip(),"is_group":"yes","fathers_name":fathers_name,"idnumber":idnumber,"username":"jhelaapi","password":"jhelaapi"}
-		
+		logger(filename='pesaplusdata.log',message = data,flag='data'+str(' from groupreg endpoint'))
 		print data
 		postfields = urllib.urlencode(data)
 
@@ -4279,7 +4279,7 @@ def addGroupClientAPI(request):
 						db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
 						cursor = db.cursor()
 						sql = "INSERT INTO MembersMasterFile (MemberTypeCode,TitleCode,FirstName,Surname,OtherNames,PayrollNo,EmployerCode,BranchCode,CategoryCode,MemberNo,IDNumber,MemberGender,HomeAddress,PresentAddress,PhoneNo,CellPhone,IntroducedBy,WorkStationCode,DOB,JoinDate,BOSAStatusDate,BOSAStatusLogUser,BOSAStatusCode,BOSAStatusComment,DesignationCode,income,GroupType,MFMSCCode) VALUES ('003','"+title+"','"+first_name+"','"+fathers_name+"','"+middle_name+"','"+phone+"','000','001','000','"+phone+"','"+idnumber+"','"+sex+"','"+ward+"','"+subcounty+"','"+phone+"','"+phone+"','"+introducerphone+"','"+workstation+"','"+dob+"',CURDATE(),CURDATE(),'system','002','New Member','000','"+income+"','"+group_type+"','002');"
-
+						logger(filename='groupdata.log',message = sql,flag='data'+str(' from groupreg endpoint'))
 						new_member = 'New Member'
 						no = 'NO'
 						print 'group avoiding SQL Injection'
@@ -4302,6 +4302,7 @@ def addGroupClientAPI(request):
 							print 'group avoiding SQL Injection after except'
 							#sql = "INSERT INTO MembersMasterFile (MemberTypeCode,TitleCode,FirstName,Surname,OtherNames,PayrollNo,EmployerCode,BranchCode,CategoryCode,MemberNo,IDNumber,MemberGender,HomeAddress,PresentAddress,PhoneNo,CellPhone,IntroducedBy,WorkStationCode,JoinDate,BOSAStatusDate,BOSAStatusLogUser,BOSAStatusCode,BOSAStatusComment,DesignationCode,DOB,Transacted,Profession,income) VALUES ('001',%s,%s,%s,%s,%s,'000','001','000',%s,%s,%s,%s,%s,%s,%s,%s,%s,CURDATE(),CURDATE(),%s,'002',%s,'000',%s,%s,%s,%s);" % (title, first_name, fathers_name, middle_name, phone, phone,idnumber,sex, ward, subcounty, phone, phone,introducerphone,workstation,system,new_member,dob,no,profession,income)
 							print sql
+							logger(filename='groupdata.log',message = sql,flag='data'+str(' from groupreg endpoint'))
 							result = cursor.execute(sql)
 							db.commit()
 							db.close()
@@ -4331,6 +4332,7 @@ def addGroupClientAPI(request):
 					cursor = db.cursor()
 					sql = "INSERT INTO Signatories (MasterFileId,ChairpersonPhone,TreasurerPhone,SecretaryPhone) VALUES ('"+MemId+"', '"+phone1+"','"+phone2+"','"+phone3+"');"  #,CURDATE()
 					print sql
+					logger(filename='groupdata.log',message = sql,flag='data'+str(' from groupreg endpoint'))
 					result = cursor.execute(sql)
 					db.commit()
 					db.close()
@@ -4362,6 +4364,7 @@ def addGroupClientAPI(request):
 					cursor = db.cursor()
 					sql = "INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('"+first_name+"','"+address+"','"+workstation+"','"+MemId+"','"+group_type+"','"+MemId+"');"
 					print sql
+					logger(filename='groupdata.log',message = sql,flag='data'+str(' from groupreg endpoint'))
 					result = cursor.execute(sql)
 					db.commit()
 					db.close()
@@ -4377,6 +4380,7 @@ def addGroupClientAPI(request):
 						cursor = db.cursor()
 						sql = "INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('"+first_name+"','"+address+"','"+workstation+"','"+MemId+"','"+group_type+"','"+MemId+"');"
 						print sql
+						logger(filename='groupdata.log',message = sql,flag='data'+str(' from groupreg endpoint'))
 						result = cursor.execute(sql)
 						db.commit()
 						db.close()
@@ -4394,6 +4398,7 @@ def addGroupClientAPI(request):
 						cursor = db.cursor()
 						sql = "INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('"+first_name+"','"+address+"','"+workstation+"','"+MemId+"','"+group_type+"','"+MemId+"');"
 						print sql
+						logger(filename='groupdata.log',message = sql,flag='data'+str(' from groupreg endpoint'))
 						result = cursor.execute(sql)
 						db.commit()
 						db.close()
@@ -4443,6 +4448,7 @@ def addGroupClientAPI(request):
 					cursor = db.cursor()
 					sql = "INSERT INTO PendingGroup (phone,chairman,treasurer,secretary,status,name,address,workstation,group_type,date_created) VALUES ('"+phone+"','"+phone1+"','"+phone2+"','"+phone3+"','pending','"+first_name+"','"+address+"','"+workstation+"','"+group_type+"',CURDATE());"
 					print sql
+					logger(filename='groupdata.log',message = sql,flag='data'+str(' from groupreg endpoint'))
 					result = cursor.execute(sql)
 					db.commit()
 					db.close()
@@ -4489,6 +4495,7 @@ def addGroupClientAPI(request):
 				cursor = db.cursor()
 				tresql = 'UPDATE MembersMasterFile SET GroupNo='+GroupNo+',GroupId='+MemId+',GroupJoinDate=CURDATE() WHERE CellPhone='+phone2;
 				print tresql
+				logger(filename='groupdata.log',message = tresql,flag='data'+str(' from groupreg endpoint'))
 				time.sleep(1)
 				result = cursor.execute(tresql)
 				print result
@@ -4519,6 +4526,7 @@ def addGroupClientAPI(request):
 				cursor = db.cursor()
 				secsql = "UPDATE MembersMasterFile SET GroupNo="+GroupNo+",GroupId="+MemId+",GroupJoinDate=CURDATE() WHERE CellPhone="+phone3+"";
 				print secsql
+				logger(filename='groupdata.log',message = secsql,flag='data'+str(' from groupreg endpoint'))
 				time.sleep(1)
 				result = cursor.execute(secsql)
 				print result
