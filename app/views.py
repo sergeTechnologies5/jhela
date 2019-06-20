@@ -1366,10 +1366,10 @@ def addClientAPI(request):
 					ncServerData = b.getvalue()
 					ncServerData = json.loads(ncServerData)
 					print ncServerData
-					logger(filename='pesaplusdata.log',message = ncServerData,flag='data'+str(' to client pesaplus'))
+					logger(filename='pesaplusclientdata.log',message = ncServerData,flag='data'+str(' to client pesaplus'))
 					print 'ncServerData ncServerData'
 				except Exception as ex:
-					logger(filename='pesapluserror.log',message = ex ,flag='error '+str(' from jaxo : client registration pesaplus'))
+					logger(filename='pesaplusclienterror.log',message = ex ,flag='error '+str(' from jaxo : client registration pesaplus'))
 					pass
 				reply = json.dumps({'result':'Phone number has already been registered'})
 			elif idresult:
@@ -1461,7 +1461,7 @@ def addClientAPI(request):
 								print result
 								print 'registered on first attempt'
 							except Exception as ex :
-								logger(filename='sqlerror.log',message = ex ,flag='error '+str(' from martin :  #Register client'))
+								logger(filename='sqlclienterror.log',message = ex ,flag='error '+str(' from martin :  #Register client'))
 								#Check phone number
 								db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
 								cursor = db.cursor()
@@ -4439,8 +4439,9 @@ def addGroupClientAPI(request):
 				db.commit()
 				db.close()
 				'''
-
+				
 				#Get MicroFinanceMasterFile GroupNo
+			
 				db = MySQLdb.connect("localhost","root","UPKFA<72-(","Main" )
 				cursor = db.cursor()
 				phonesql = 'Select GroupName,Address,WorkStationCode,GroupNo,Description from MicroFinanceMasterFile where MMFMemId='+MemId+' LIMIT 1;'
