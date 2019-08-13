@@ -887,7 +887,11 @@ def addJuniorClientAPI(request):
 				c.setopt(pycurl.WRITEFUNCTION, b.write)
 				c.perform()
 				ncServerData = b.getvalue()
-				ncServerData = json.loads(ncServerData)
+				try :
+
+					ncServerData = json.loads(ncServerData)
+				except :
+					pass
 				print ncServerData
 				print 'ncServerData ncServerData'
 				#except:
