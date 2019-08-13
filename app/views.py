@@ -890,6 +890,7 @@ def addJuniorClientAPI(request):
 				try :
 					ncServerData = json.loads(ncServerData)
 				except :
+					logger(filename='jsonerror.log',message = ex ,flag='error '+str(' from pesaplus :  #can not deserialize object to json'))
 					pass
 				print ncServerData
 				print 'ncServerData ncServerData'
