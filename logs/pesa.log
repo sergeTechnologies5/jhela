@@ -1,0 +1,8 @@
+INFO:root:Message is : INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('Testing 43','KAMENU ,THIKA TOWN','9040216','92074','Chama','92074');  | | Flag  : data from groupreg endpoint
+INFO:root:Message is : (1062, "Duplicate entry '92074' for key 'PRIMARY'")  | | Flag  :  error from : martin : Register Microfinance group MicroFinanceMasterFile
+INFO:root:Message is : INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('Testing 43','KAMENU ,THIKA TOWN','09040216','92074','Chama','92074');  | | Flag  : data from groupreg endpoint
+INFO:root:Message is : (1062, "Duplicate entry '92074' for key 'PRIMARY'")  | | Flag  :  error from : martin : workstation update 2
+INFO:root:Message is : INSERT INTO MicroFinanceMasterFile (GroupName,Address,WorkStationCode,GroupNo,Description,MMFMemId) VALUES ('Testing 43','KAMENU ,THIKA TOWN','009040216','92074','Chama','92074');  | | Flag  : data from groupreg endpoint
+INFO:root:Message is : (1062, "Duplicate entry '92074' for key 'PRIMARY'")  | | Flag  :  error from : martin : weka is True 
+INFO:root:Message is : INSERT INTO PendingGroup (phone,chairman,treasurer,secretary,status,name,address,workstation,group_type,date_created) VALUES ('254793842540','254722531106','254795586955','254791371576','pending','Testing 43','KAMENU ,THIKA TOWN','009040216','Chama',CURDATE());  | | Flag  : data from groupreg endpoint
+INFO:root:Message is : (1062, "Duplicate entry '254793842540' for key 'PRIMARY'")  | | Flag  :  error from : martin : saving signatories for later processing 
