@@ -888,7 +888,6 @@ def addJuniorClientAPI(request):
 				c.perform()
 				ncServerData = b.getvalue()
 				try :
-
 					ncServerData = json.loads(ncServerData)
 				except :
 					pass
